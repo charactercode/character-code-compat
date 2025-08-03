@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>キャラクターコード相性診断</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f7f7f7;
+      text-align: center;
+      padding: 50px;
+    }
+    h1 {
+      font-size: 28px;
+    }
+    .input-area {
+      margin: 20px 0;
+    }
+    input[type="text"] {
+      width: 100px;
+      font-size: 20px;
+      text-align: center;
+      text-transform: uppercase;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      margin-top: 10px;
+    }
+    .result {
+      margin-top: 30px;
+      font-size: 20px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>これらのキャラクターコードの相性は？</h1>
+
+  <div class="input-area">
+    <input id="code1" type="text" maxlength="4" placeholder="例: UTF8">
+    <input id="code2" type="text" maxlength="4" placeholder="例: SJIS">
+    <br>
+    <button onclick="diagnose()">相性診断する</button>
+  </div>
+
+  <div id="result" class="result"></div>
+
+  <script>
+    function diagnose() {
+      const code1 = document.getElementById("code1").value.trim().toUpperCase();
+      const code2 = document.getElementById("code2").value.trim().toUpperCase();
+
+      if (code1.length !== 4 || code2.length !== 4) {
+        alert("両方のコードに4文字入力してください。");
+        return;
+      }
+
+      // ランダム相性（後で固定表に差し替え可）
+      const percent = Math.floor(Math.random() * 101);
+
+      // 仮の解説（後で256通りに差し替え可）
+      const dummyExplanations = [
+        "互換性がありそうです！",
+        "表示に注意が必要です。",
+        "かなり微妙な相性です。",
+        "仲は良さそうですが油断禁物。",
+        "お互いに無関心かも…"
+      ];
+      const explanation = dummyExplanations[Math.floor(Math.random() * dummyExplanations.length)];
+
+      document.getElementById("result").style.display = "block";
+      document.getElementById("result").innerHTML =
+        `<strong>${code1}</strong> と <strong>${code2}</strong> の相性は <strong>${percent}%</strong> です。<br>${explanation}`;
+    }
+  </script>
+</body>
+</html>
